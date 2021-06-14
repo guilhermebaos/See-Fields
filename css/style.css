@@ -19,3 +19,7 @@ h1 {
     font-size: 4em;
     font-family: 'Roboto', Arial, sans-serif;
 }
+
+p {
+    text-indent: 10px;
+}
