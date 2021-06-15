@@ -1,6 +1,7 @@
 // Imports
-import Point from '../js/point'
-import GravFieldPoint from '../js/point'
+import Point from '../js/point.js'
+import GravFieldPoint from '../js/point.js'
+import GravBody from '../js/gravBody.js'
 
 
 // PARAMETERS
