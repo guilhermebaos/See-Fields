@@ -6,7 +6,18 @@ import GravColorSim from '../js/gravColorSim.js'
 
 
 // PARAMETERS
-const scale = window.devicePixelRatio
+
+// Scale of the canvas (bigger scale = higher resolution)
+const SCALE = window.devicePixelRatio + 0
+
+// Distance between points in the canvas
+const STEP = new Point(1, 2)
+
+
+const PARAMETERS = {
+    SCALE,
+    STEP
+}
 
 
 
@@ -18,7 +29,7 @@ const scale = window.devicePixelRatio
 // HTML Constants
 const colorGravCanvas = document.getElementById('colorGravCanvas')
 
-colorGravCanvas.sim = new GravColorSim(colorGravCanvas, scale)
+colorGravCanvas.sim = new GravColorSim(colorGravCanvas, PARAMETERS)
 
 
 
@@ -28,18 +39,18 @@ colorGravCanvas.sim = new GravColorSim(colorGravCanvas, scale)
 function resizeCanvas(canvas) {
     let rect = canvas.getBoundingClientRect()
 
-    colorGravCanvas.width = (rect.right - rect.left) * scale
-    colorGravCanvas.height = (rect.bottom - rect.top) * scale
+    colorGravCanvas.width = (rect.right - rect.left) * SCALE
+    colorGravCanvas.height = (rect.bottom - rect.top) * SCALE
 
-    canvas.onResize()
+    canvas.sim.onResize()
 }
 
 // Detect and respond to click
 function mouseClick(canvas, event) {
     let rect = canvas.getBoundingClientRect()
 
-    let x = (event.clientX - rect.left) * scale,
-        y = (event.clientY - rect.top) * scale
+    let x = (event.clientX - rect.left) * SCALE,
+        y = (event.clientY - rect.top) * SCALE
     canvas.onClick(x, y)
 }
 
