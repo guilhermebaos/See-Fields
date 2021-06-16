@@ -1,7 +1,7 @@
 // Imports
-import Point from '../js/point.js'
+import Vector2D from '../js/vector2d.js'
 import GravBody from '../js/gravBody.js'
-import GravFieldPoint from '../js/point.js'
+import GravFieldPoint from '../js/gravFieldPoint.js'
 import GravColorSim from '../js/gravColorSim.js'
 
 
@@ -11,7 +11,7 @@ import GravColorSim from '../js/gravColorSim.js'
 const SCALE = window.devicePixelRatio + 0
 
 // Distance between points in the canvas
-const STEP = new Point(1, 2)
+const STEP = new Vector2D(1, 2)
 
 
 const PARAMETERS = {

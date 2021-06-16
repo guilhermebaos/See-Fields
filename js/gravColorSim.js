@@ -1,6 +1,6 @@
 import GravBody from '../js/gravBody.js'
-import Point from '../js/point.js'
-import GravFieldPoint from '../js/point.js'
+import Vector2D from '../js/vector2d.js'
+import GravFieldPoint from '../js/gravFieldPoint.js'
 
 // The Simulation of a static and colored Gravitational Field
 export default class GravColorSim {
