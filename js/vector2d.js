@@ -1,16 +1,23 @@
 // A point (or 2D Vector)
 export default class Vector2D {
     constructor(x, y) {
+        // Vector coordinates
         this.x = x
         this.y = y
-        this.abs = this.absThis()
+
+        // Length of the vector (absolute value)
+        this.absThis()
     }
 
+    // Calculate the absolute value of this vector
     absThis() {
-        return (this.x ** 2 + this.y ** 2) ** 0.5
+        this.abs = (this.x ** 2 + this.y ** 2) ** 0.5
     }
 
+    // Calculate a unit vector with this vector's direction
     unitVectorThis() {
-        this.abs = this.absThis()
+        this.absThis()
+
+        return new Vector2D(this.x / this.abs, this.y / this.abs)
     }
 }

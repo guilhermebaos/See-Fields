@@ -11,7 +11,7 @@ import GravColorSim from '../js/gravColorSim.js'
 const SCALE = window.devicePixelRatio + 0
 
 // Distance between points in the canvas
-const STEP = new Vector2D(1, 2)
+const STEP = new Vector2D(1, 1)
 
 
 const PARAMETERS = {
@@ -27,8 +27,15 @@ const PARAMETERS = {
 
 
 // HTML Constants
+
+// Canvas
 const colorGravCanvas = document.getElementById('colorGravCanvas')
 
+// Inputs
+colorGravCanvas.massInput = document.getElementById('colorMass')
+colorGravCanvas.colorInput = document.getElementById('colorColor')
+
+// Simulation
 colorGravCanvas.sim = new GravColorSim(colorGravCanvas, PARAMETERS)
 
 
@@ -51,7 +58,11 @@ function mouseClick(canvas, event) {
 
     let x = (event.clientX - rect.left) * SCALE,
         y = (event.clientY - rect.top) * SCALE
-    canvas.onClick(x, y)
+
+    let mass = colorGravCanvas.massInput.value * 1
+    let color = colorGravCanvas.colorInput.value
+
+    canvas.sim.onClick(x, y, mass, color)
 }
 
 colorGravCanvas.addEventListener('mousedown', (event) => { mouseClick(colorGravCanvas, event) })
