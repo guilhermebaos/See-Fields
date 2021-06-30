@@ -2,14 +2,18 @@ import GravBody from '../js/gravBody.js'
 import Vector2D from '../js/vector2d.js'
 import GravFieldPoint from '../js/gravFieldPoint.js'
 
+import { gravityOnPoint } from '../js/lawsOfPhysiscs.js'
+
 // The Simulation of a static and colored Gravitational Field
 export default class GravColorSim {
-    constructor(canvas, PARAMETERS) {
+    constructor(canvas, PARAMETERS, CONSTANTS) {
         this.canvas = canvas
         this.ctx = canvas.getContext('2d')
 
         this.SCALE = PARAMETERS.SCALE
         this.STEP = PARAMETERS.STEP
+
+        this.CONSTANTS = CONSTANTS
     }
 
     // Start and Restart the Simulation
@@ -20,6 +24,14 @@ export default class GravColorSim {
 
         // Clear the canvas
         this.ctx.clearRect(0, 0, this.width, this.height)
+
+        // Width and height of the Simulation (in meters)
+        this.simWidth = this.canvas.widthInput.value * 1
+        this.simHeight = this.simWidth * this.height / this.width
+
+        // Convert between pixels and meters
+        this.pxToM = this.simWidth / this.width
+        this.mToPx = this.width / this.simWidth
 
         // Define points according to the Parameters
         this.points = this.getPoints()
@@ -49,7 +61,7 @@ export default class GravColorSim {
 
         this.bodies.push(new GravBody(this, x, y, mass, color))
 
-        this.draw()
+        this.update()
     }
 
     // When the canvas iss resized, restart the simulation Object, while saving all the bodies
@@ -61,6 +73,20 @@ export default class GravColorSim {
         // Resize the bodies' coordinates
         for (let index in this.bodies) {
             this.bodies[index].resize()
+        }
+
+        this.draw()
+    }
+
+    update() {
+        for (let indexP in this.points) {
+            let point = this.points[indexP]
+            for (let indexB in this.bodies) {
+                let body = this.bodies[indexB]
+
+                gravityOnPoint(this, point, body)
+                debugger
+            }
         }
 
         this.draw()

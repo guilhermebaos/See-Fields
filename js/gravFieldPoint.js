@@ -9,8 +9,7 @@ export default class GravFieldPoint {
         // Center of the Point, used for the Gravity calculations
         this.center = new Vector2D(x + step.x / 2, y + step.y / 2)
 
-        // The gravity vector on the 
+        // The gravity vector on this point
         this.gravity = new Vector2D(0, 0)
-        this.body = null
     }
 }

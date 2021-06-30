@@ -12,6 +12,8 @@ export default class Vector2D {
     // Calculate the absolute value of this vector
     absThis() {
         this.abs = (this.x ** 2 + this.y ** 2) ** 0.5
+
+        return this.abs
     }
 
     // Calculate a unit vector with this vector's direction
@@ -19,5 +21,12 @@ export default class Vector2D {
         this.absThis()
 
         return new Vector2D(this.x / this.abs, this.y / this.abs)
+    }
+
+    // Return this - vector
+    thisMinus(vector) {
+        let result = new Vector2D(this.x - vector.x, this.y - vector.y)
+
+        return result
     }
 }

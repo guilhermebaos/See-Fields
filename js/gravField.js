@@ -24,6 +24,11 @@ const PARAMETERS = {
 // CONSTANTS
 
 // Physics Constants
+const G = 6.674e-11     // m**3 kg**-1 s**-2
+
+const CONSTANTS = {
+    G
+}
 
 
 // HTML Constants
@@ -34,9 +39,12 @@ const colorGravCanvas = document.getElementById('colorGravCanvas')
 // Inputs
 colorGravCanvas.massInput = document.getElementById('colorMass')
 colorGravCanvas.colorInput = document.getElementById('colorColor')
+colorGravCanvas.widthInput = document.getElementById('colorWidth')
 
 // Simulation
-colorGravCanvas.sim = new GravColorSim(colorGravCanvas, PARAMETERS)
+colorGravCanvas.sim = new GravColorSim(colorGravCanvas, PARAMETERS, CONSTANTS)
+
+
 
 
 

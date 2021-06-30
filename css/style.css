@@ -6,6 +6,10 @@
     --darker-blue: #022859;
 
     --black-blue: #011526;
+
+
+    --medium-screen: 700px;
+    --small-screen: 400px;
 }
 
 body {
@@ -59,9 +63,16 @@ canvas {
     background-color: var(--black-blue);
 }
 
+div.sim-parameters {
+    margin-top: 30px;
+}
+div.sim-parameters > h3 {
+    margin: 20px 0px 10px 0px;
+}
 
 div.input {
     display: flex;
+    align-items: center;
     margin: 0px;
 }
 div.input > div:first-child {
@@ -69,6 +80,13 @@ div.input > div:first-child {
     text-align: right;
     margin-right: 10px;
 }
-div.input > div:last-child {
-    width: 85%;
+@media only screen and (max-width: 700px){
+    div.input > div:first-child {
+        width: 35%;
+    }
+}
+@media only screen and (max-width: 400px){
+    div.input > div:first-child {
+        width: 50%;
+    }
 }
