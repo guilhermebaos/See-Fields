@@ -24,8 +24,15 @@ export default class Vector2D {
     }
 
     // Return this - vector
-    thisMinus(vector) {
+    minus(vector) {
         let result = new Vector2D(this.x - vector.x, this.y - vector.y)
+
+        return result
+    }
+
+    // Return this * constant
+    times(constant) {
+        let result = new Vector2D(this.x * constant, this.y * constant)
 
         return result
     }

@@ -11,7 +11,7 @@ export default class GravBody {
         this.mass = mass
         this.color = color
 
-        this.radius = Math.round(Math.max(Math.log(this.mass) - Math.log(this.sim.simWidth), 3))
+        this.radius = Math.round(Math.max((Math.log(this.mass) - Math.log(this.sim.simWidth) / 3) / 2, 3))
     }
 
     // Recalculate the coordinates when the canvas is resized

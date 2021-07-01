@@ -25,6 +25,20 @@ export default class GravColorSim {
         // Clear the canvas
         this.ctx.clearRect(0, 0, this.width, this.height)
 
+        // Get the Simulation Parameters
+        this.getParameters()
+
+        // Define points according to the Parameters
+        this.getPoints()
+
+        // List with all the bodies in the simulation
+        this.bodies = []
+
+        // Draw the current Gravitational Field
+        this.draw()
+    }
+
+    getParameters() {
         // Width and height of the Simulation (in meters)
         this.simWidth = this.canvas.widthInput.value * 1
         this.simHeight = this.simWidth * this.height / this.width
@@ -32,15 +46,6 @@ export default class GravColorSim {
         // Convert between pixels and meters
         this.pxToM = this.simWidth / this.width
         this.mToPx = this.width / this.simWidth
-
-        // Define points according to the Parameters
-        this.points = this.getPoints()
-
-        // List with all the bodies in the simulation
-        this.bodies = []
-
-        // Draw the current Gravitational Field
-        this.draw()
     }
 
     // Get all the points in the canvas
@@ -51,7 +56,7 @@ export default class GravColorSim {
                 tempPoints.push(new GravFieldPoint(x, y, this.STEP))
             }
         }
-        return tempPoints
+        this.points =  tempPoints
     }
 
     // When the user clicks on the canvas, create a Body on that point
@@ -64,7 +69,7 @@ export default class GravColorSim {
         this.update()
     }
 
-    // When the canvas iss resized, restart the simulation Object, while saving all the bodies
+    // When the canvas is resized, restart the simulation Object, while saving all the bodies
     onResize() {
         let temp = this.bodies ?? []
         this.start()
@@ -85,7 +90,6 @@ export default class GravColorSim {
                 let body = this.bodies[indexB]
 
                 gravityOnPoint(this, point, body)
-                debugger
             }
         }
 

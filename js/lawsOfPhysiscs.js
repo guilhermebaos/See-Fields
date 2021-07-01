@@ -4,15 +4,13 @@ import Vector2D from '../js/vector2d.js'
 function gravityOnPoint(sim, point, body) {
     let G = sim.CONSTANTS.G
 
-    let diffVector = body.coord.thisMinus(point.coord)
+    let diffVector = body.coord.minus(point.coord)
     let distance = diffVector.absThis() * sim.pxToM
 
-    console.log(distance)
-    console.log(body.mass)
-
+    let unitForceVector = diffVector.unitVectorThis()
     let intensity = (G * body.mass) / (distance ** 2)
 
-    console.log(intensity)
+    return unitForceVector.times(intensity)
 }
 
 export { gravityOnPoint }
