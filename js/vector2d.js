@@ -23,6 +23,13 @@ export default class Vector2D {
         return new Vector2D(this.x / this.abs, this.y / this.abs)
     }
 
+    // Return this + vector
+    add(vector) {
+        let result = new Vector2D(this.x + vector.x, this.y + vector.y)
+
+        return result
+    }
+
     // Return this - vector
     minus(vector) {
         let result = new Vector2D(this.x - vector.x, this.y - vector.y)
