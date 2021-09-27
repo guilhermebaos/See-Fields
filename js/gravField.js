@@ -30,6 +30,12 @@ const CONSTANTS = {
     G
 }
 
+// Color Constants
+const COLORS = {
+    minGrav: [2, 40, 89],
+    maxGrav: [171, 214, 231]
+}
+
 
 // HTML Constants
 
@@ -42,7 +48,7 @@ colorGravCanvas.colorInput = document.getElementById('colorColor')
 colorGravCanvas.widthInput = document.getElementById('colorWidth')
 
 // Simulation
-colorGravCanvas.sim = new GravColorSim(colorGravCanvas, PARAMETERS, CONSTANTS)
+colorGravCanvas.sim = new GravColorSim(colorGravCanvas, PARAMETERS, CONSTANTS, COLORS)
 
 
 

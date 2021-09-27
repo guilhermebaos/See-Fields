@@ -6,7 +6,7 @@ import { gravityOnPoint } from '../js/lawsOfPhysiscs.js'
 
 // The Simulation of a static and colored Gravitational Field
 export default class GravColorSim {
-    constructor(canvas, PARAMETERS, CONSTANTS) {
+    constructor(canvas, PARAMETERS, CONSTANTS, COLORS) {
         this.canvas = canvas
         this.ctx = canvas.getContext('2d')
 
@@ -14,9 +14,11 @@ export default class GravColorSim {
         this.STEP = PARAMETERS.STEP
 
         this.CONSTANTS = CONSTANTS
+        this.COLORS = COLORS
 
-        // The gravitational intensities will be put on a scale between 0 and this.gravMax, and then be colored accordingly
-        this.gravMax = 100
+        // The gravitational intensities will be put on a scale between the two boundary colors, and colored accordingly
+        this.minGrav = Infinity
+        this.maxGrav = 0
     }
 
     // Start and Restart the Simulation
@@ -39,6 +41,9 @@ export default class GravColorSim {
 
         // Draw the current Gravitational Field
         this.draw()
+
+        // Get the array of all possible colors
+        this.getColors()
     }
 
     getParameters() {
@@ -88,16 +93,52 @@ export default class GravColorSim {
         this.draw()
     }
 
+    // Check if this value is the new min or max Gravity
+    minMaxGravCheck(value) {
+        if (value < this.minGrav) {
+            this.minGrav = value
+        } else if (value > this.maxGrav) {
+            this.maxGrav = value
+        }
+    }
+
+    // Generates the colors that will be used for showing the gravity
+    getColors() {
+        this.allColors = []
+
+        // Get a spectrum of all colors between the two values, starting at the darkest and ending in the brightest color
+        let currentColor = this.COLORS.minGrav
+        let endColor = this.COLORS.maxGrav
+        let diffArr = [0, 0, 0]
+        let toBreak = false
+        while (true) {
+            this.allColors.push(`rgb(${currentColor[0]},${currentColor[1]},${currentColor[2]})`)
+
+            for (let i=0; i < 3; i++) {
+                diffArr[i] = endColor[i] - currentColor[i]
+
+                if (diffArr[i] < 0) {
+                    toBreak = true
+                }
+            }
+
+            if (toBreak) break
+
+            currentColor[diffArr.indexOf(Math.max(...diffArr))] += 1
+        }
+    }
+
     // Determine the color of each point
     colorPoints() {
 
     }
 
     update(doAllBodies=false) {
-        // Get each point and restart their gravity
+        // Get each point and restart its gravity
         for (let indexP in this.points) {
             let point = this.points[indexP]
 
+            // Recalculate gravity for every body we have
             if (doAllBodies) {
                 point.gravity = new Vector2D(0, 0)
                 for (let indexB in this.bodies) {
@@ -108,6 +149,8 @@ export default class GravColorSim {
                     point.gravity = point.gravity.add(gravity)
                 }
             }
+
+            // Only add the last body's gravity to the total
             else {
                 let body = this.bodies[this.bodies.length - 1]
 
@@ -115,6 +158,8 @@ export default class GravColorSim {
     
                 point.gravity = point.gravity.add(gravity)
             }
+
+            this.minMaxGravCheck(point.gravity.absThis())
         }
 
         this.draw()
