@@ -112,8 +112,10 @@ export default class GravColorSim {
         let diffArr = [0, 0, 0]
         let toBreak = false
         while (true) {
+            // Save the color
             this.allColors.push(`rgb(${currentColor[0]},${currentColor[1]},${currentColor[2]})`)
 
+            // Check with RGB value has the biggest difference between current and end values
             for (let i=0; i < 3; i++) {
                 diffArr[i] = endColor[i] - currentColor[i]
 
@@ -124,13 +126,29 @@ export default class GravColorSim {
 
             if (toBreak) break
 
+            // Shorten the gap between the RGB values that are farthest apart
             currentColor[diffArr.indexOf(Math.max(...diffArr))] += 1
         }
     }
 
     // Determine the color of each point
     colorPoints() {
+        this.cPStorage = {
+            numColors: this.allColors.length,
+            gravDelta: this.maxGrav - this.minGrav,
+            gravScale: undefined
+        }
 
+        // See the amount associated with each color
+        this.cPStorage.gravScale = this.cPStorage.gravDelta / this.cPStorage.numColors
+        for (let indexP in this.points) {
+            let point = this.points[indexP]
+            
+            // See where this gravity is on the color Scale
+            let colorIndex = Math.round(point.gravity.abs / this.cPStorage.gravScale)
+
+            point.color = this.allColors[colorIndex]
+        }
     }
 
     update(doAllBodies=false) {
@@ -162,10 +180,20 @@ export default class GravColorSim {
             this.minMaxGravCheck(point.gravity.absThis())
         }
 
+        this.colorPoints()
+
         this.draw()
     }
 
     draw() {
+        // Clear the canvas
+        this.ctx.clearRect(0, 0, this.width, this.height)
+
+        // Color the points
+        for (let index in this.points) {
+            this.points[index].draw(this.ctx)
+        }
+
         // Draw the bodies
         for (let index in this.bodies) {
             this.bodies[index].draw(this.ctx)

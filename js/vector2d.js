@@ -43,4 +43,11 @@ export default class Vector2D {
 
         return result
     }
+
+    // Distance between points
+    distance(vector) {
+        let result = ((this.x - vector.x) ** 2 + (this.y - vector.y) ** 2)**0.5
+
+        return result
+    }
 }

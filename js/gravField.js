@@ -11,7 +11,7 @@ import GravColorSim from '../js/gravColorSim.js'
 const SCALE = window.devicePixelRatio + 0
 
 // Distance between points in the canvas
-const STEP = new Vector2D(1, 1)
+const STEP = new Vector2D(2, 2)
 
 
 const PARAMETERS = {
